@@ -1,0 +1,21 @@
+require 'yaml'
+"12".to_i
+"12".to_i!
+"12".to_i!
+ urls= [
+    [106,'argent','http://www.linternaute.com/citation/theme/106/'],
+    [103,'histoire','http://www.linternaute.com/citation/theme/103/'],
+    [140,'spectacle','http://www.linternaute.com/citation/theme/140/'],
+    [89,'morale','http://www.linternaute.com/citation/theme/89/'],
+    [112,'sentiments','http://www.linternaute.com/citation/theme/112/'],
+    [124,'temps-qui-passe','http://www.linternaute.com/citation/theme/124/']
+    ]       
+require 'nokogiri'
+require 'openuri'
+require 'open-uri'
+urls.each do |url|
+puts "#{url[2]}/#{url[1]}/"
+end
+urls.each do |url|
+puts "#{url[2]}#{url[1]}/"
+end
