@@ -19,3 +19,20 @@ end
 urls.each do |url|
 puts "#{url[2]}#{url[1]}/"
 end
+require 'nokogiri'
+require 'open-uri'
+d=Nokogiri::HTML(open("http://www.linternaute.com/citation/theme/106/3/argent/"))
+text_citation_css='td.libelle_proverbe a strong'
+d.css(text_citation_css)
+d.text
+  text_citation_css='td.libelle_citattion a strong'
+d.css(text_citation_css)
+d
+d.css("td.libelle_citattion a strong")
+d.css("td.libelle_citattion a")
+d.css("td.libelle_citattion")
+d.css
+d=Nokogiri::HTML(open("http://www.linternaute.com/citation/theme/106/3/argent/"))
+d.css("td.libelle_citation")
+d.css("td.libelle_citation a")
+d.css("td.libelle_citation a").each {|t| p t.text}
