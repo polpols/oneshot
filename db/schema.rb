@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120719123638) do
+ActiveRecord::Schema.define(:version => 20120724141850) do
 
   create_table "active_passwords", :force => true do |t|
     t.string   "url"
@@ -22,12 +22,21 @@ ActiveRecord::Schema.define(:version => 20120719123638) do
     t.boolean  "active"
   end
 
+  create_table "auteurs", :force => true do |t|
+    t.string   "nom"
+    t.string   "comment"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "url"
+  end
+
   create_table "citations", :force => true do |t|
     t.string   "theme"
     t.string   "data"
     t.string   "url"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "auteur_id"
   end
 
   create_table "pages", :force => true do |t|

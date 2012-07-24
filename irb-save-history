@@ -36,3 +36,7 @@ d=Nokogiri::HTML(open("http://www.linternaute.com/citation/theme/106/3/argent/")
 d.css("td.libelle_citation")
 d.css("td.libelle_citation a")
 d.css("td.libelle_citation a").each {|t| p t.text}
+Citation.find :all
+Citation.find :first
+Citation.destroy_all
+Citation.find :all
