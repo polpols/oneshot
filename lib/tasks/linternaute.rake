@@ -5,39 +5,45 @@ require 'logger'
 require 'nokogiri'
 require 'open-uri'
 
-task :citation => :environment do 
-  
-  urls= [
-    [106,'argent','http://www.linternaute.com/citation/theme/106/'],
-    [103,'histoire','http://www.linternaute.com/citation/theme/103/'],
-    [140,'spectacle','http://www.linternaute.com/citation/theme/140/'],
-    [89,'morale','http://www.linternaute.com/citation/theme/89/'],
-    [112,'sentiments','http://www.linternaute.com/citation/theme/112/'],
-    [124,'temps-qui-passe','http://www.linternaute.com/citation/theme/124/']
-    ]
-  nbr_page_citations_css='td.multipage_corps a.multipage_lien'
-  text_citation_css='td.libelle_citation a'
-  
-urls.each do |url|
-  #trouve nbre page                
-  dest="#{url[2]}#{url[1]}/"
-   p dest
-  nbr_page=Nokogiri::HTML(open(dest)).css(nbr_page_citations_css) 
-   p nbr_page.last.text 
-  nbr_page=nbr_page.last.text.to_i 
- 
-  (1..nbr_page).each do |page|  
-    new_dest="#{url[2]}#{page.to_s}/#{url[1]}/"  
-    p new_dest
-    doc=Nokogiri::HTML(open(new_dest)) 
-    doc.css(text_citation_css).each do |citation|
-      Citation.new(:theme=>url[1],:data=>citation.text).save
-      
+namespace :linternaute => :environment do
+  desc "Task description"
+  task :citation  do
+    url="http://www.linternaute.com/citation/auteur/11/1/"
+    url2="http://www.linternaute.com/citation/auteur/11/"
+    debut=Nokogiri::HTML(open(url))
+    nbr_page=debut.css('a.multipage_lien').last.text.to_i
+    (1..nbr_page).each do |page|
+      nouv_page="#{url2}#{page.to_s}/"
+      auteur_doc=Nokogiri::HTML(open(nouv_page))
+      auteur_doc.css("a.nom_personnage").each do |perso|
+        Auteur.new do |auteur|
+          auteur.name=perso.text
+          aut_cit_doc=Nokogiri::HTML(open(perso["href"]))
+          if aut_cit_doc.css("multipage_lien")==nil
+            aut_cit_doc.css("td.libelle_citation").each do |citation|
+              auteur.citation.new(:data=>citation.css("a").text)
+            end
+          else
+            (0..aut_cit_doc.css("multipage_lien").last.text.to_i).each do |citation|
+              
+              
+            end
+          end
+          cita=auteur.citations.new 
+
+          auteur.save     
+        end
+      end
+
     end
-    
-  end
-  
+
+
+
+  end 
 end
 
-  
-end
+
+
+
+
+

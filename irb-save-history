@@ -1,0 +1,22 @@
+a=1
+a.to_s
+require "nokogiri"
+require 'open-uri'
+Nokogiri::HTML(open("http://www.linternaute.com/citation/auteur/11/1/")).css("a.nom_personnage")
+Nokogiri::HTML(open("http://www.linternaute.com/citation/auteur/11/1/")).css("a.nom_personnage").size
+Nokogiri::HTML(open("http://www.linternaute.com/citation/auteur/11/1/")).css("a.nom_personnage").each {|d|p d.text}
+a=Auteur.new()
+a.citations
+a.citations
+a.citations.new
+a.citations.new.data="lol"
+a.citations
+require 'Nokogiri'
+require 'open-uri'
+url=  url="http://www.linternaute.com/citation/auteur/11/1/"
+  url="http://www.linternaute.com/citation/auteur/11/1/"
+a=Nokogiri::HTML(open(  url))
+a.css("a.nom_personnage")
+a.css("a.nom_personnage").first
+a.css("a.nom_personnage").first.text
+a.css("a.nom_personnage").first['href']
